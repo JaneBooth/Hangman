@@ -66,7 +66,7 @@ function checkGuess(){
         const htmlInstructions = document.getElementById("instructionsText");
         htmlInstructions.innerText = "You can only guess one letter at a time";
     }
-    else if( guessText.toUpperCase() != guessText.toLowerCase() ){
+    else if(guessText.toLowerCase().charCodeAt(0) < 123 && guessText.toLowerCase().charCodeAt(0) > 96){
         let alreadyGuessed = false;
         lettersGuessed.forEach(letter=>{
             if(letter.charCodeAt(0) == guessText.toLowerCase().charCodeAt(0)){
@@ -78,6 +78,7 @@ function checkGuess(){
             htmlInstructions.innerText = "You've already guessed that letter";
         }
         else{
+            
             currentGuess = guessText.toLowerCase();
             lettersGuessed.push(currentGuess);
             let lettersGuessedText = "Letters guessed so far: ";
@@ -94,6 +95,8 @@ function checkGuess(){
             })
             if(correctGuess == false){
                 guessesLeft -= 1;
+                const htmlInstructions = document.getElementById("instructionsText");
+                htmlInstructions.innerText = "";
                 if(guessesLeft < 1){
                     const htmlInstructions = document.getElementById("instructionsText");
                     htmlInstructions.innerText = "You lost :( The correct word was: " + word;
@@ -129,6 +132,10 @@ function checkGuess(){
                     htmlInstructions.innerText = "You won :) congratulations!";
                     document.getElementById('inputId').style.display = 'none';
                     document.getElementById('submitGuess').style.display = 'none';
+                }
+                else{
+                    const htmlInstructions = document.getElementById("instructionsText");
+                    htmlInstructions.innerText = "";
                 }
             }
         }
